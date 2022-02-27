@@ -1,12 +1,22 @@
 [
     {
-        "title": "test",
-        "description": "my description ",
+        "title": "docker build command",
+        "description": "build ",
         "payload": "docker build -t jsal/x:latest"
     },
     {
-        "title": "let's go ",
-        "description": "my hello ",
-        "payload": "asdfasdifsadipfj"
+        "title": "schmancy-clipboard file path",
+        "description": "Path to schamcy clipboard git repo",
+        "payload": "/usr/xyz/JoelSaleem/Github"
+    },
+    {
+        "title": "protobuf generate command",
+        "description": "Command to generate golang protobuf message files",
+        "payload": "pb ..."
+    }, 
+    {
+        "title": "run schmancy",
+        "description": "Command to run schmancy clipboard binary",
+        "payload": "OPTS_PATH=\"./opts.json\" ./schmancy-clipboard"
     }
 ]

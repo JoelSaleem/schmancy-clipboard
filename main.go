@@ -104,7 +104,6 @@ func newModel() model {
 	}
 	defer jsonFile.Close()
 
-	fmt.Println(jsonFile)
 	b, _ := ioutil.ReadAll(jsonFile)
 	var opts []Opt
 	json.Unmarshal([]byte(b), &opts)
@@ -113,8 +112,6 @@ func newModel() model {
 	numItems := len(opts)
 	items := make([]list.Item, numItems)
 	for i := 0; i < numItems; i++ {
-		// items[i] = opts[i]
-		fmt.Println(opts)
 		items[i] = item{
 			title:       opts[i].Title,
 			description: opts[i].Description,
@@ -127,10 +124,10 @@ func newModel() model {
 
 	// Setup list
 	delegate := newItemDelegate(delegateKeys)
-	groceryList := list.New(items, delegate, 0, 0)
-	groceryList.Title = "Groceries"
-	groceryList.Styles.Title = titleStyle
-	groceryList.AdditionalFullHelpKeys = func() []key.Binding {
+	itemsList := list.New(items, delegate, 0, 0)
+	itemsList.Title = "Schmancy"
+	itemsList.Styles.Title = titleStyle
+	itemsList.AdditionalFullHelpKeys = func() []key.Binding {
 		return []key.Binding{
 			listKeys.toggleSpinner,
 			listKeys.insertItem,
@@ -142,7 +139,7 @@ func newModel() model {
 	}
 
 	return model{
-		list:          groceryList,
+		list:          itemsList,
 		keys:          listKeys,
 		delegateKeys:  delegateKeys,
 		itemGenerator: &itemGenerator,
@@ -191,12 +188,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.list.SetShowHelp(!m.list.ShowHelp())
 			return m, nil
 
-		case key.Matches(msg, m.keys.insertItem):
-			m.delegateKeys.remove.SetEnabled(true)
-			newItem := m.itemGenerator.next()
-			insCmd := m.list.InsertItem(0, newItem)
-			statusCmd := m.list.NewStatusMessage(statusMessageStyle("Added " + newItem.Title()))
-			return m, tea.Batch(insCmd, statusCmd)
+			// case key.Matches(msg, m.keys.insertItem):
+			// 	m.delegateKeys.remove.SetEnabled(true)
+			// 	newItem := m.itemGenerator.next()
+			// 	insCmd := m.list.InsertItem(0, newItem)
+			// 	statusCmd := m.list.NewStatusMessage(statusMessageStyle("Added " + newItem.Title()))
+			// 	return m, tea.Batch(insCmd, statusCmd)
 		}
 	}
 
